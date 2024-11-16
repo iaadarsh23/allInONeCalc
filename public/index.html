@@ -25,7 +25,7 @@
                 <div>
                     <input type="text" placeholder="Type to Calculate" id="input">
                     <input type="text" placeholder="Output" readonly id="output">
-                    <button id="calbtn">Calculate</button>
+                    <button id="clear">Clear</button>
                 </div>
 
                 <!-- wrapper that contains number btns , operators -->
@@ -33,27 +33,27 @@
 
                     <!-- numbers -->
                     <div>
-                        <input type="button" value="0">
-                        <input type="button" value="1">
-                        <input type="button" value="2">
-                        <input type="button" value="3">
-                        <input type="button" value="4">
-                        <input type="button" value="5">
-                        <input type="button" value="6">
-                        <input type="button" value="7">
-                        <input type="button" value="8">
-                        <input type="button" value="9">
+                        <input type="button" value="0" id="0"  data-type="number">
+                        <input type="button" value="1" id="1" data-type="number">
+                        <input type="button" value="2" id="2" data-type="number">
+                        <input type="button" value="3" id="3" data-type="number">
+                        <input type="button" value="4" id="4" data-type="number">
+                        <input type="button" value="5" id="5" data-type="number"> 
+                        <input type="button" value="6" id="6" data-type="number">
+                        <input type="button" value="7" id="7" data-type="number">
+                        <input type="button" value="8" id="8">
+                        <input type="button" value="9" id="9" data-type="number">
                     </div>
 
                      <!-- operators btns -->
 
                     <div>
-                        <input type="button" value="+">
-                        <input type="button" value="-">
-                        <input type="button" value="*">
-                        <input type="button" value="/">
-                        <input type="button" value="%">
-                        <input type="button" value="=">
+                        <input type="button" value="+" id="+" data-type="operator">
+                        <input type="button" value="-" id="-" data-type="operator">
+                        <input type="button" value="*" id="*" data-type="operator">
+                        <input type="button" value="/" id="/" data-type="operator">
+                        <input type="button" value="%" id="%" data-type="operator">
+                        <input type="button" value="=" id="equals" data-type="operator">
                     </div>
 
                  </div>
