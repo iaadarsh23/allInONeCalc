@@ -24,10 +24,9 @@ function calc(){
             console.log(tokens);
 
             let isValid = true; // Assume valid until proven otherwise
-            let even= (i%2===0);
-            let odd= (i%2===1);
+            
             for (let i = 0; i < tokens.length; i++) {
-                if (even) {
+                if (i%2===0) {
                     // Expect a number at even indices
                     if (!/^\d+$/.test(tokens[i])) {
                         console.log(`Error: Expected a number at position ${i}`);
@@ -42,19 +41,27 @@ function calc(){
                         break;
                         
                     }
-                    
+                }
+            } 
+            for(let i=0;i<tokens.length;i++){
+                let even= (i%2===0);
+                let odd= (i%2===1);
+                if(even){
+                    if(tokens[i].match(/^[+\-*/%]$/)){
+                        if(tokens[i]==='*'){
+                            //["25","+","10","*","2"]
+                            console.log(tokens[i]=tokens[i-1]*tokens[i+1]); 
+                        }
+                    }
 
                 }
-            }
-            
-            
-            
-               
-            
-                
-        })
-       
+            }      
+        })  
     })
+
+
+
+
 
     //it will clear the input display
     clearbtn.addEventListener('click',()=>{
@@ -62,17 +69,19 @@ function calc(){
         userOutput.value='';
     })
 
-    calBtn.addEventListener('click',()=>{
-        try{
-            console.log("Input value:", userInput.value);
-            userOutput.value= result;
-        }
-        catch(e){
-            userOutput.value='Invalid selection';
+
+
+    // calBtn.addEventListener('click',()=>{
+    //     try{
+    //         console.log("Input value:", userInput.value);
+    //         userOutput.value= result;
+    //     }
+    //     catch(e){
+    //         userOutput.value='Invalid selection';
             
-        }
+    //     }
         
-    });
+    // });
 
     
 }
