@@ -69,6 +69,7 @@ function calc(){
         }
         catch(e){
             userOutput.value='Invalid selection';
+            userOutput.value='Invalid selection';
         }
         
     });
