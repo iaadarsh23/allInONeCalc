@@ -24,9 +24,10 @@ function calc(){
             console.log(tokens);
 
             let isValid = true; // Assume valid until proven otherwise
-
+            let even= (i%2===0);
+            let odd= (i%2===1);
             for (let i = 0; i < tokens.length; i++) {
-                if (i % 2 === 0) {
+                if (even) {
                     // Expect a number at even indices
                     if (!/^\d+$/.test(tokens[i])) {
                         console.log(`Error: Expected a number at position ${i}`);
@@ -39,15 +40,14 @@ function calc(){
                         console.log(`Error: Expected an operator at position ${i}`);
                         isValid = false;
                         break;
+                        
                     }
+                    
+
                 }
             }
             
-            if (isValid) {
-                console.log('We are good!');
-            } else {
-                console.log('Invalid input');
-            }
+            
             
                
             
@@ -65,11 +65,11 @@ function calc(){
     calBtn.addEventListener('click',()=>{
         try{
             console.log("Input value:", userInput.value);
-            userOutput.value= eval(userInput.value);
+            userOutput.value= result;
         }
         catch(e){
             userOutput.value='Invalid selection';
-            userOutput.value='Invalid selection';
+            
         }
         
     });
