@@ -23,7 +23,7 @@ function calc(){
             let tokens = oldToken.match(/\d+|\+|\-|\*|\/|\%/g);
             console.log(tokens);
 
-            let isValid = true; // Assume valid until proven otherwise
+            let isValid = true;
             
             for (let i = 0; i < tokens.length; i++) {
                 if (i%2===0) {
@@ -43,19 +43,56 @@ function calc(){
                     }
                 }
             } 
-            for(let i=0;i<tokens.length;i++){
-                let even= (i%2===0);
-                let odd= (i%2===1);
-                if(even){
-                    if(tokens[i].match(/^[+\-*/%]$/)){
-                        if(tokens[i]==='*'){
-                            //["25","+","10","*","2"]
-                            console.log(tokens[i]=tokens[i-1]*tokens[i+1]); 
-                        }
+            for (let i = 0; i < tokens.length; i++) {
+                let result;
+            
+                
+                let leftOperand = parseFloat(tokens[i - 1]);
+                let rightOperand = parseFloat(tokens[i + 1]);
+            
+                //  high-precedence operators 
+                if (tokens[i] === '*' || tokens[i] === '/' || tokens[i] === '%') {
+                    if (tokens[i] === '*') {
+                        result = leftOperand * rightOperand;
+                    } else if (tokens[i] === '/') {
+                        result = leftOperand / rightOperand;
+                    } else if (tokens[i] === '%') {
+                        result = leftOperand % rightOperand;
                     }
-
+            
+                    //replacing the calculated value, from leftoperand and 3 values will be replace with new element jo ki string me change ho jayega.
+                    tokens.splice(i - 1, 3, result.toString());
+                    i -= 1;
                 }
-            }      
+            }
+            
+            // lower precedence
+            for (let i = 0; i < tokens.length; i++) {
+                let result;
+            
+                let leftOperand = parseFloat(tokens[i - 1]);
+                let rightOperand = parseFloat(tokens[i + 1]);
+            
+                if (tokens[i] === '+' || tokens[i] === '-') {
+                    if (tokens[i] === '+') {
+                        result = leftOperand + rightOperand;
+                    } else if (tokens[i] === '-') {
+                        result = leftOperand - rightOperand;
+                    }
+            
+                    tokens.splice(i - 1, 3, result.toString());
+                    i -= 1;
+                }
+            }
+            
+            // jo end me array bcha
+            let finalResult = tokens[0];
+            
+            //calculate btn
+            calBtn.addEventListener("click", () => {
+                userOutput.value = finalResult;
+            });
+            
         })  
     })
 
