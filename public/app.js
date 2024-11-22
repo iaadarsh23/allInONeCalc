@@ -67,7 +67,8 @@ function calc() {
                         tokens.splice(i - 1, 3, result.toString());
                         i -= 1;
                         i -= 1;
-                        i -= 1;
+                        i -= 1;the the j 
+                        
                     }
                 }
 
