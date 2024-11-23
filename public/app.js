@@ -65,10 +65,8 @@ function calc() {
 
                         // Calculation ka result replace karna
                         tokens.splice(i - 1, 3, result.toString());
-                        i -= 1;
-                        i -= 1;
                         i -= 1; 
-                        rgefrgtyy 
+                        
                     }
                 }
 
