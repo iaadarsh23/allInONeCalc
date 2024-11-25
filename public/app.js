@@ -10,12 +10,20 @@ function calc() {
     btns.forEach(button => {
         button.addEventListener('click', () => {
             let btnDataType = button.dataset.type;
-            let numData = btnDataType = 'number';
-            let opData = btnDataType = 'operator';
+            
 
-            if (numData || opData) {
+            if (btnDataType==='number' || btnDataType==='operator' ) {
                 // Appending the value
                 userInput.value += button.value;
+            }
+            else if(btnDataType==='Soperator'){
+                 // Validate and calculate sin
+                 if (userInput.value.trim() === '' || isNaN(userInput.value)) {
+                    userOutput.value = 'Error: Enter a valid number';
+                } else {
+                    userOutput.value = calSin(userInput.value); // Update output directly
+                }
+                console.log(userInput.value)
             }
 
             // Calculate button
@@ -23,7 +31,8 @@ function calc() {
                 // Hum tokenization method use kar rahe hain to avoid using eval().
                 let oldToken = userInput.value;
                 // Ye ek regular expression hai
-                let tokens = oldToken.match(/\d+|\+|\-|\*|\/|\%/g);
+                let tokens = oldToken.match(/(\d+(\.\d+)?)|[+\-*/%]/g);
+
                 console.log(tokens);
 
                 let isValid = true;
@@ -91,7 +100,12 @@ function calc() {
                 // Jo end me array bacha
                 let finalResult = tokens[0];
                 userOutput.value = finalResult;
+
             });
+
+
+
+
 
             
         });
@@ -108,15 +122,15 @@ function calc() {
         userOutput.value = '';
     });
 
-    // Eval function ka puraane implementation ka part (commented out)
-    // calBtn.addEventListener('click', () => {
-    //     try {
-    //         console.log("Input value:", userInput.value);
-    //         userOutput.value = result;
-    //     } catch (e) {
-    //         userOutput.value = 'Invalid selection';
-    //     }
-    // });
+    
 }
+
+//calculate sin
+function calSin(value){
+    let angle = parseFloat(value);
+    let radValue = angle * (Math.PI / 180);  // Convert degrees to radians
+    return Math.sin(radValue);
+}
+
 
 calc();
