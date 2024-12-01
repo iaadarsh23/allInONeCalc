@@ -1,6 +1,5 @@
-let lat='28.7041';
-let lon='77.1025';
-// let api="569e019ea0880c8c2b20220ac28d1fe7";
+
+//let api="569e019ea0880c8c2b20220ac28d1fe7";
 
 
 
@@ -45,20 +44,36 @@ let lon='77.1025';
 // }
 
 //
+
+
+
+
 async function wether() {
     const city=document.getElementById("srch").value.trim();
-    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`);
+    let lat='';
+    let lon=''
+    function showLoc(position){
+         lat=position.coords.latitude;
+         lon=position.coords.longitude;
+        console.log(lat);
+        console.log(lon);
+    
+    }
+   
     try {
         // Fetch weather data from the API
-        
+        const strt= performance.now();
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lat=${lat}&lon=${lon}&appid=${api}`);
         
         // Check if the response is not ok
         if (!response.ok) {
             throw new Error(`Network issue! Status: ${response.status}`);
         }
-        
+        const finish= performance.now();
         // Parse the JSON response
         let data1 = await response.json();
+        
+        console.log(finish-strt);
         console.log(data1);
 
         // Call a function to display the weather data
@@ -70,15 +85,24 @@ async function wether() {
     }
 }
 
+
+
 function show(vle){
    
     const result = document.getElementById("js-result");
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showLoc);
+    }
+    else{
+        result.innerHTML="cnnt access";
+    }
+    
     result.innerHTML=`
 
         <p> wethere data</p>
         <ul>
         <li>City name:${vle.name}</li>
-        <li>temp:${vle.main.temp} °C</li>
+        <li>Temperature: ${(vle.main.temp - 273.15).toFixed(2)} °C</li>
         <li>humid:${vle.main.humidity}%</li>
         <li>Wind Speed: ${vle.wind.speed} m/s</li>
         <li>Weather: ${vle.weather[0].description}</li>
@@ -90,8 +114,24 @@ function show(vle){
 }
 
 document.getElementById("btn").addEventListener('click', ()=>{
+    setTimeout(()=>{
+        document.getElementById("gif").removeAttribute("hidden")
+    },2000)
     wether();
     
 
 })
+
+function myloc(){
+    const result = document.getElementById("js-result");
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showLoc);
+    }
+    else{
+        result.innerHTML="cnnt access";
+    }
+    
+}
+
+
 
