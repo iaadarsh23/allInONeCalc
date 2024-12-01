@@ -1,6 +1,6 @@
 let lat='28.7041';
 let lon='77.1025';
-let api="569e019ea0880c8c2b20220ac28d1fe7";
+// let api="569e019ea0880c8c2b20220ac28d1fe7";
 
 
 
