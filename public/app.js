@@ -1,8 +1,10 @@
-// let url = 'https://api.openweathermap.org/data/2.5/air_pollution?lat=28.7041&lon=77.1025&appid=569e019ea0880c8c2b20220ac28d1fe7';
+let lat='28.7041';
+let lon='77.1025';
+// let api="569e019ea0880c8c2b20220ac28d1fe7";
 
 async function get() {
     try {
-        let response = await fetch(url);
+        let response = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${api}`);
 
         // Check if the response is not ok
         if (!response.ok) {
@@ -10,6 +12,7 @@ async function get() {
         }
 
         let data = await response.json();
+        console.log(data);
         let city= data.list[0].main.aqi;
         
        
@@ -31,7 +34,6 @@ async function get() {
             </li>
 
          
-         
          </ul>
             `
             
@@ -40,4 +42,47 @@ async function get() {
     }
 }
 
-get();
+//
+async function wether() {
+    let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api}`);
+    try {
+        // Fetch weather data from the API
+        
+        
+        // Check if the response is not ok
+        if (!response.ok) {
+            throw new Error(`Network issue! Status: ${response.status}`);
+        }
+        
+        // Parse the JSON response
+        let data1 = await response.json();
+        console.log(data1);
+
+        // Call a function to display the weather data
+        show(data1);
+
+    } catch (error) {
+        // Catch and log errors
+        console.error(`Cannot access weather data: ${error.message}`);
+    }
+}
+
+function show(vle){
+    let result=document.getElementById("js-result");
+    let newPara=document.createElement('p');
+    document.body.appendChild(newPara);
+    newPara.innerHTML=`
+
+        <p> wethere data</p>
+        <ul>
+        <li>City name:${vle.name}</li>
+        <li>temp:${vle.main.temp} °C</li>
+        <li>humid:${vle.main.humidity}%</li>
+        <li>Wind Speed: ${vle.wind.speed} m/s</li>
+        <li>Weather: ${vle.weather[0].description}</li>
+        <li></li>
+        </ul>
+    
+    `
+}
+
