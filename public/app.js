@@ -45,25 +45,44 @@
 
 //
 
+    function showLoc(position){
+         let lat=position.coords.latitude;
+         let lon=position.coords.longitude;
 
+         async function Loc() {
+            let response= await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api}`)
+            try {
+                if(!response.ok){
+                    throw new Error("Network issue", response.status)
+                }
+                let data= await response.json();
+                show(data);
+
+                
+            } catch (error) {
+                console.log("error", error.message);
+                
+            }
+            ;
+            
+            
+         }
+         Loc();
+
+
+        
+    
+    }
 
 
 async function wether() {
     const city=document.getElementById("srch").value.trim();
-    let lat='';
-    let lon=''
-    function showLoc(position){
-         lat=position.coords.latitude;
-         lon=position.coords.longitude;
-        console.log(lat);
-        console.log(lon);
     
-    }
    
     try {
         // Fetch weather data from the API
         const strt= performance.now();
-        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&lat=${lat}&lon=${lon}&appid=${api}`);
+        let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`);
         
         // Check if the response is not ok
         if (!response.ok) {
@@ -90,12 +109,7 @@ async function wether() {
 function show(vle){
    
     const result = document.getElementById("js-result");
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(showLoc);
-    }
-    else{
-        result.innerHTML="cnnt access";
-    }
+    
     
     result.innerHTML=`
 
@@ -114,9 +128,7 @@ function show(vle){
 }
 
 document.getElementById("btn").addEventListener('click', ()=>{
-    setTimeout(()=>{
-        document.getElementById("gif").removeAttribute("hidden")
-    },2000)
+   
     wether();
     
 
