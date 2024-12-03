@@ -1,17 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather app with AQI</title>
-</head>
-<body>
-    <h1>Aqi</h1>
-    <input type="text" id="srch" placeholder="enter the city">
-    <button id="btn">search</button>
-    <img src="/images/load-37_256.gif" alt="" width="70px" height="70px" hidden  id="gif">
-    <p id="js-result"></p>
-    <button id="loc" onclick="myloc()">My loc</button>
-</body>
-<script src="app.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weather app with AQI</title>
+	</head>
+	<body>
+		<main>
+			<section>
+				<!-- wrapper div -->
+				<div>
+					<h1>Weather App</h1>
+					<!-- selection tabs -->
+					<div>
+						<!-- your weather tab -->
+						<div>
+							<button>Your weather</button>
+						</div>
+						<!-- search weather -->
+						<div>
+							<input type="text" placeholder="Enter the city" />
+						</div>
+					</div>
+
+					<!-- city names -->
+					<div>
+						<p>City name</p>
+						<img src="" alt="city flag" />\
+					</div>
+
+					<!-- weather details -->
+					<div>
+						<p>Haze</p>
+						<img src="" alt="weather image" />
+						<p>Temperature</p>
+					</div>
+
+					<!-- other details  -->
+					<div>
+						<div>
+							<img src="" alt="imgs" />
+							<p>windspeed</p>
+						</div>
+						<div>
+							<img src="" alt="imgs" />
+							<p>Humidity</p>
+						</div>
+						<div>
+							<img src="" alt="imgs" />
+							<p>clouds</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	</body>
+	<script src="app.js"></script>
 </html>
