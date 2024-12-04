@@ -61,12 +61,10 @@ function showLoc(position) {
 	Loc();
 }
 
-async function wether() {
-	const city = document.getElementById("srch").value.trim();
-
+async function weather(city) {
 	try {
 		// Fetch weather data from the API
-		const strt = performance.now();
+
 		let response = await fetch(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`
 		);
@@ -75,11 +73,10 @@ async function wether() {
 		if (!response.ok) {
 			throw new Error(`Network issue! Status: ${response.status}`);
 		}
-		const finish = performance.now();
+
 		// Parse the JSON response
 		let data1 = await response.json();
 
-		console.log(finish - strt);
 		console.log(data1);
 
 		// Call a function to display the weather data
@@ -91,7 +88,7 @@ async function wether() {
 }
 
 function show(vle) {
-	const result = document.getElementById("js-result");
+	const result = document.getElementById("srch-result");
 
 	result.innerHTML = `
 
@@ -102,14 +99,23 @@ function show(vle) {
         <li>humid:${vle.main.humidity}%</li>
         <li>Wind Speed: ${vle.wind.speed} m/s</li>
         <li>Weather: ${vle.weather[0].description}</li>
-        <li></li>
+        
         </ul>
     
     `;
 }
 
-document.getElementById("btn").addEventListener("click", () => {
-	wether();
+//form submit behaviour preventiion
+document.querySelector("[submit-form]").addEventListener("submit", (event) => {
+	event.preventDefault();
+
+	const city = document.getElementById("int").value.trim();
+	weather(city);
+});
+
+//search btn
+document.getElementById("srch").addEventListener("click", () => {
+	weather();
 });
 
 function myloc() {

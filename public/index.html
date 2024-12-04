@@ -15,12 +15,33 @@
 					<div>
 						<!-- your weather tab -->
 						<div>
-							<button id="js-result" onclick="myloc()">Your weather</button>
+							<button id="js-result">Your weather</button>
 						</div>
-						<!-- search weather -->
-						<div>
-							<input type="text" placeholder="Enter the city" />
-						</div>
+
+						<!-- search weather form -->
+						<!-- we have to stop its default submit behaviour -->
+						<form submit-form>
+							<input type="text" placeholder="Search the city" id="int" />
+							<button id="srch">
+								<img
+									src="/images/glass.png"
+									alt=""
+									width="40px "
+									height="40px "
+									loading="lazy"
+								/>
+							</button>
+						</form>
+					</div>
+					<p id="srch-result"></p>
+
+					<!-- grant location container -->
+					<!-- it is hidden initially  -->
+					<div>
+						<img src="/images/map.png" alt="location img" loading="lazy" />
+						<h1>Grant your location</h1>
+						<p>Allow Acess To Get Weather Information</p>
+						<button>Grant Access</button>
 					</div>
 
 					<!-- city names -->
