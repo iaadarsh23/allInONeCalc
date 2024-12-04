@@ -1,4 +1,4 @@
-// let api = "569e019ea0880c8c2b20220ac28d1fe7";
+//let api = "569e019ea0880c8c2b20220ac28d1fe7";
 
 // async function get() {
 //     try {
@@ -106,7 +106,6 @@ function show(vle) {
         </ul>
     
     `;
-	newPara = "";
 }
 
 document.getElementById("btn").addEventListener("click", () => {
@@ -114,10 +113,13 @@ document.getElementById("btn").addEventListener("click", () => {
 });
 
 function myloc() {
-	const result = document.getElementById("js-result");
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showLoc);
 	} else {
 		result.innerHTML = "cnnt access";
 	}
 }
+const result = document.getElementById("js-result");
+result.addEventListener("click", () => {
+	myloc();
+});
