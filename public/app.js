@@ -1,5 +1,4 @@
 //let api = "569e019ea0880c8c2b20220ac28d1fe7";
-
 // async function get() {
 //     try {
 //         let response = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?q=${city}&appid=${api}`);
@@ -40,6 +39,7 @@
 
 //
 
+//getting data for my loc based on lat and long
 function showLoc(position) {
 	let lat = position.coords.latitude;
 	let lon = position.coords.longitude;
@@ -61,6 +61,7 @@ function showLoc(position) {
 	Loc();
 }
 
+//getting the data based on city
 async function weather(city) {
 	try {
 		// Fetch weather data from the API
@@ -87,6 +88,7 @@ async function weather(city) {
 	}
 }
 
+//showing the data
 function show(vle) {
 	const result = document.getElementById("srch-result");
 
@@ -105,19 +107,20 @@ function show(vle) {
     `;
 }
 
-//form submit behaviour preventiion
-document.querySelector("[submit-form]").addEventListener("submit", (event) => {
-	event.preventDefault();
-
-	const city = document.getElementById("int").value.trim();
-	weather(city);
-});
-
 //search btn
 document.getElementById("srch").addEventListener("click", () => {
-	weather();
+	//form submit behaviour preventiion
+	document
+		.querySelector("[submit-form]")
+		.addEventListener("submit", (event) => {
+			event.preventDefault();
+
+			const city = document.getElementById("int").value.trim();
+			weather(city);
+		});
 });
 
+//using the geolocation api to get weather data of my location
 function myloc() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showLoc);
@@ -125,7 +128,11 @@ function myloc() {
 		result.innerHTML = "cnnt access";
 	}
 }
+
+//my location btn
 const result = document.getElementById("js-result");
 result.addEventListener("click", () => {
 	myloc();
 });
+
+//tab switching

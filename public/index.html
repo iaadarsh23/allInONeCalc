@@ -35,41 +35,81 @@
 					</div>
 					<p id="srch-result"></p>
 
+					<!-- loading screen container-->
+					<div>
+						<img
+							src="/images/load-37_256.gif"
+							alt="loading image"
+							loading-gif
+							width="100"
+							height="100"
+						/>
+					</div>
 					<!-- grant location container -->
 					<!-- it is hidden initially  -->
 					<div>
-						<img src="/images/map.png" alt="location img" loading="lazy" />
+						<img
+							src="/images/map.png"
+							alt="location img"
+							loading="lazy"
+							width="70"
+							height="70"
+						/>
 						<h1>Grant your location</h1>
 						<p>Allow Acess To Get Weather Information</p>
 						<button>Grant Access</button>
 					</div>
 
-					<!-- city names -->
+					<!-- weather detail container -->
 					<div>
-						<p>City name</p>
-						<img src="" alt="city flag" />\
-					</div>
-
-					<!-- weather details -->
-					<div>
-						<p>Haze</p>
-						<img src="" alt="weather image" />
-						<p>Temperature</p>
-					</div>
-
-					<!-- other details  -->
-					<div>
+						<!-- city names and flag-->
 						<div>
-							<img src="" alt="imgs" />
-							<p>windspeed</p>
+							<p city-name>City name</p>
+							<img src="" alt="city flag" flag />
 						</div>
+
+						<!-- weather details -->
 						<div>
-							<img src="" alt="imgs" />
-							<p>Humidity</p>
+							<p weather-description>Haze</p>
+							<img src="" alt="weather image" weather-image />
+							<p temp>Temperature</p>
 						</div>
+
+						<!-- paramer  -->
 						<div>
-							<img src="" alt="imgs" />
-							<p>clouds</p>
+							<div>
+								<img
+									src="/images/wind (1).png"
+									alt="imgs"
+									wind-icon
+									width="100"
+									height="100"
+								/>
+								<p>windspeed</p>
+								<p wind-speed>windspeed</p>
+							</div>
+
+							<div>
+								<img
+									src="/images/humidity (1).png"
+									alt="imgs"
+									width="100"
+									height="100"
+								/>
+								<p>Humidity</p>
+								<p humidity-data></p>
+							</div>
+
+							<div>
+								<img
+									src="/images/sun (1).png"
+									alt="imgs"
+									width="100"
+									height="100"
+								/>
+								<p>clouds</p>
+								<p cloud-data>clouds</p>
+							</div>
 						</div>
 					</div>
 				</div>
