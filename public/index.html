@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Weather app with AQI</title>
+		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
 		<main>
@@ -13,12 +14,18 @@
 					<h1>Weather App</h1>
 					<!-- selection tabs -->
 					<div>
-						<!-- your weather tab -->
+						<!-- user tab -->
+						<p class="tab" id="user" user-tab>Your Weather</p>
 						<div>
 							<button id="js-result">Your weather</button>
 						</div>
+						<p class="tab" search-tab>Search Weather</p>
+						<p class="tab" practice-tab>switch</p>
+						<p class="tab" practice-tab1>switchhere</p>
+					</div>
 
-						<!-- search weather form -->
+					<!-- search weather form -->
+					<div>
 						<!-- we have to stop its default submit behaviour -->
 						<form submit-form>
 							<input type="text" placeholder="Search the city" id="int" />
@@ -33,10 +40,12 @@
 							</button>
 						</form>
 					</div>
+
+					<!-- data will be should here intially -->
 					<p id="srch-result"></p>
 
 					<!-- loading screen container-->
-					<div>
+					<div loading>
 						<img
 							src="/images/load-37_256.gif"
 							alt="loading image"
@@ -47,7 +56,7 @@
 					</div>
 					<!-- grant location container -->
 					<!-- it is hidden initially  -->
-					<div>
+					<div grant-location>
 						<img
 							src="/images/map.png"
 							alt="location img"
@@ -61,7 +70,7 @@
 					</div>
 
 					<!-- weather detail container -->
-					<div>
+					<div weather-detail>
 						<!-- city names and flag-->
 						<div>
 							<p city-name>City name</p>

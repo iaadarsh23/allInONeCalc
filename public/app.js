@@ -136,3 +136,31 @@ result.addEventListener("click", () => {
 });
 
 //tab switching
+const allTabs = document.querySelectorAll(".tab");
+const userTab = document.querySelector("[user-tab]");
+const searchTab = document.querySelector("[search-tab]");
+const p1 = document.querySelector("[practice-tab]");
+const p2 = document.querySelector("[practice-tab1]");
+let currentTab = userTab;
+currentTab.classList.add("current-tab");
+
+allTabs.forEach((tab) => {
+	tab.addEventListener("click", () => {
+		switchTab(tab);
+	});
+});
+
+function switchTab(clickedTab) {
+	if (clickedTab != currentTab) {
+		currentTab.classList.remove("current-tab");
+		currentTab = clickedTab;
+		currentTab.classList.add("current-tab");
+	}
+}
+
+userTab.addEventListener("click", () => {
+	switchTab(userTab);
+});
+searchTab.addEventListener("click", () => {
+	switchTab(searchTab);
+});
