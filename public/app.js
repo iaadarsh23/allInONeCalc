@@ -135,32 +135,46 @@ result.addEventListener("click", () => {
 	myloc();
 });
 
-//tab switching
+//tab switiching again
 const allTabs = document.querySelectorAll(".tab");
 const userTab = document.querySelector("[user-tab]");
 const searchTab = document.querySelector("[search-tab]");
-const p1 = document.querySelector("[practice-tab]");
-const p2 = document.querySelector("[practice-tab1]");
-let currentTab = userTab;
-currentTab.classList.add("current-tab");
+const searchForm = document.querySelector("[search-form]");
+const grantLocation = document.querySelector("[grant-location]");
+const weatherDesc = document.querySelector("[weather-detail]");
+let oldTab = userTab;
+//adding the current tab which we had made in css
+oldTab.classList.add("current-tab");
 
+//looping through all the tabs at once
 allTabs.forEach((tab) => {
 	tab.addEventListener("click", () => {
 		switchTab(tab);
 	});
 });
 
-function switchTab(clickedTab) {
-	if (clickedTab != currentTab) {
-		currentTab.classList.remove("current-tab");
-		currentTab = clickedTab;
-		currentTab.classList.add("current-tab");
+function switchTab(newTab) {
+	if (newTab != oldTab) {
+		oldTab.classList.remove("current-tab");
+		oldTab = newTab;
+		oldTab.classList.add("current-tab");
+
+		//kya mera search vala tab invisble tha , if yes then make it visible
+		if (!searchForm.classList.contains("active")) {
+			grantLocation.classList.remove("active");
+			weatherDesc.classList.remove("active");
+			searchForm.classList.add("active");
+		} else {
+			//phle hum search vale tab pr then ab yourweather vaale pr hai
+			searchForm.classList.remove("active");
+			weatherDesc.classList.remove("active");
+
+			//we will check the local storage for the weather if we have saved the coordinates there
+			getfromSessionStorage();
+		}
 	}
 }
 
 userTab.addEventListener("click", () => {
-	switchTab(userTab);
-});
-searchTab.addEventListener("click", () => {
-	switchTab(searchTab);
+	myloc();
 });
