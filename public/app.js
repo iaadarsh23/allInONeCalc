@@ -1,58 +1,37 @@
-//let api = "569e019ea0880c8c2b20220ac28d1fe7";
-// async function get() {
-//     try {
-//         let response = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?q=${city}&appid=${api}`);
+const allTabs = document.querySelectorAll(".tab");
+const userTab = document.querySelector("[user-tab]");
+const searchTab = document.querySelector("[search-tab]");
+const searchForm = document.querySelector("[search-form]");
+const grantLocation = document.querySelector("[grant-location]");
+const weatherDesc = document.querySelector("[weather-detail]");
+const loader = document.querySelector("[loading]");
+//const api = "569e019ea0880c8c2b20220ac28d1fe7";
 
-//         // Check if the response is not ok
-//         if (!response.ok) {
-//             throw new Error(`HTTP Error! Status: ${response.status}`);
-//         }
-
-//         let data = await response.json();
-//         console.log(data);
-//         let city= data.list[0].main.aqi;
-
-//         // Display data
-//         const result = document.getElementById("js-result");
-//         result.innerHTML = ` <p> here is the forcst</p>
-//          <ul>
-//             <li>
-//             AQI: ${city}
-//             </li>
-//             <li>
-//             co: ${data.list[0].components.co}
-//             </li>
-//             <li>
-//             no: ${data.list[0].components.no}
-//             </li>
-//             <li>
-//             o3: ${data.list[0].components.o3}
-//             </li>
-
-//          </ul>
-//             `
-
-//     } catch (error) {
-//         console.error(`Error fetching data: ${error.message}`);
-//     }
-// }
-
-//
-
-//getting data for my loc based on lat and long
+// Function to show location based on latitude and longitude
 function showLoc(position) {
-	let lat = position.coords.latitude;
-	let lon = position.coords.longitude;
+	let coordinates = {
+		lat: position.coords.latitude,
+		lon: position.coords.longitude,
+	};
 
 	async function Loc() {
-		let response = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api}`
-		);
+		//making the grant location ui invisible
+		grantLocation.classList.remove("active");
+		//make the loader visible
+		loader.classList.add("active");
+
 		try {
+			let response = await fetch(
+				`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${api}`
+			);
 			if (!response.ok) {
 				throw new Error("Network issue", response.status);
 			}
 			let data = await response.json();
+			console.log(data);
+			//api call  mardi ab loader ko hta denge hum
+			loader.classList.remove("active");
+			weatherDesc.classList.add("active");
 			show(data);
 		} catch (error) {
 			console.log("error", error.message);
@@ -61,92 +40,87 @@ function showLoc(position) {
 	Loc();
 }
 
-//getting the data based on city
+// Function to get weather data based on city name
 async function weather(city) {
 	try {
-		// Fetch weather data from the API
-
 		let response = await fetch(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`
 		);
 
-		// Check if the response is not ok
 		if (!response.ok) {
 			throw new Error(`Network issue! Status: ${response.status}`);
 		}
 
-		// Parse the JSON response
 		let data1 = await response.json();
 
 		console.log(data1);
 
-		// Call a function to display the weather data
 		show(data1);
 	} catch (error) {
-		// Catch and log errors
 		console.error(`Cannot access weather data: ${error.message}`);
 	}
 }
 
-//showing the data
-function show(vle) {
-	const result = document.getElementById("srch-result");
+// Function to display weather data
+function show(value) {
+	const cityname = document.querySelector("[city-name]");
+	const countryFlag = document.querySelector("[flag]");
+	const weatherDescription = document.querySelector("[weather-description]");
+	const weatherImage = document.querySelector("[weather-image]");
+	const temperature = document.querySelector("[temp]");
+	const windSpeed = document.querySelector("[wind-speed]");
+	const humidityData = document.querySelector("[humidity-data]");
+	const cloudData = document.querySelector("[cloud-data]");
 
-	result.innerHTML = `
+	cityname.innerHTML = `${value.name}`;
+	countryFlag.innerHTML = `${value.sys.country}`;
+	weatherDescription.innerHTML = `${value.weather[0].description}`;
+	temperature.innerHTML = `${(value.main.temp - 273.15).toFixed(2)} °C`;
+	windSpeed.innerHTML = `${value.wind.speed}m/s`;
+	humidityData.innerHTML = `${value.main.humidity}%`;
+	cloudData.innerHTML = `${value.clouds.all}%`;
+	// weatherDesc.innerHTML = `
 
-        <p> wethere data</p>
-        <ul>
-        <li>City name:${vle.name}</li>
-        <li>Temperature: ${(vle.main.temp - 273.15).toFixed(2)} °C</li>
-        <li>humid:${vle.main.humidity}%</li>
-        <li>Wind Speed: ${vle.wind.speed} m/s</li>
-        <li>Weather: ${vle.weather[0].description}</li>
-        
-        </ul>
-    
-    `;
+	// <p>Weather Data</p>
+	// <ul>
+	//     <li>City name: </li>
+	//     <li>Temperature: ${</li>
+	//     <li>Humidity: ${}%</li>
+	//     <li>Wind Speed: ${} m/s</li>
+	//     <li>Weather: ${}</li>
+	//     <li>Country: ${}</li>
+	// </ul>
+	// `;
 }
 
-//search btn
-document.getElementById("srch").addEventListener("click", () => {
-	//form submit behaviour preventiion
-	document
-		.querySelector("[submit-form]")
-		.addEventListener("submit", (event) => {
-			event.preventDefault();
-
-			const city = document.getElementById("int").value.trim();
-			weather(city);
-		});
+// Event listener for search button
+document.getElementById("srch").addEventListener("click", (event) => {
+	event.preventDefault();
+	const city = document.getElementById("int").value.trim();
+	weather(city);
 });
 
-//using the geolocation api to get weather data of my location
+// Function to get location data using geolocation API
 function myloc() {
+	const result = document.getElementById("js-result");
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showLoc);
 	} else {
-		result.innerHTML = "cnnt access";
+		result.innerHTML = "Cannot access";
 	}
 }
 
-//my location btn
+// Event listener for location button
 const result = document.getElementById("js-result");
 result.addEventListener("click", () => {
 	myloc();
 });
 
-//tab switiching again
-const allTabs = document.querySelectorAll(".tab");
-const userTab = document.querySelector("[user-tab]");
-const searchTab = document.querySelector("[search-tab]");
-const searchForm = document.querySelector("[search-form]");
-const grantLocation = document.querySelector("[grant-location]");
-const weatherDesc = document.querySelector("[weather-detail]");
+// Tab switching logic
 let oldTab = userTab;
-//adding the current tab which we had made in css
+
 oldTab.classList.add("current-tab");
 
-//looping through all the tabs at once
 allTabs.forEach((tab) => {
 	tab.addEventListener("click", () => {
 		switchTab(tab);
@@ -159,17 +133,13 @@ function switchTab(newTab) {
 		oldTab = newTab;
 		oldTab.classList.add("current-tab");
 
-		//kya mera search vala tab invisble tha , if yes then make it visible
 		if (!searchForm.classList.contains("active")) {
-			grantLocation.classList.remove("active");
 			weatherDesc.classList.remove("active");
 			searchForm.classList.add("active");
 		} else {
-			//phle hum search vale tab pr then ab yourweather vaale pr hai
 			searchForm.classList.remove("active");
 			weatherDesc.classList.remove("active");
 
-			//we will check the local storage for the weather if we have saved the coordinates there
 			getfromSessionStorage();
 		}
 	}
@@ -178,3 +148,14 @@ function switchTab(newTab) {
 userTab.addEventListener("click", () => {
 	myloc();
 });
+
+// Function to check coordinates in session storage
+function getfromSessionStorage() {
+	const localCoordinates = sessionStorage.getItem("user-coordinates");
+	if (!localCoordinates) {
+		grantLocation.classList.add("active");
+	} else {
+		let coordinates = JSON.parse(localCoordinates);
+		showLoc({ coords: coordinates });
+	}
+}
