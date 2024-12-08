@@ -72,25 +72,15 @@ function show(value) {
 	const humidityData = document.querySelector("[humidity-data]");
 	const cloudData = document.querySelector("[cloud-data]");
 
-	cityname.innerHTML = `${value.name}`;
-	countryFlag.innerHTML = `${value.sys.country}`;
-	weatherDescription.innerHTML = `${value.weather[0].description}`;
-	temperature.innerHTML = `${(value.main.temp - 273.15).toFixed(2)} °C`;
-	windSpeed.innerHTML = `${value.wind.speed}m/s`;
-	humidityData.innerHTML = `${value.main.humidity}%`;
-	cloudData.innerHTML = `${value.clouds.all}%`;
-	// weatherDesc.innerHTML = `
+	//we'll do this using optional chaining
 
-	// <p>Weather Data</p>
-	// <ul>
-	//     <li>City name: </li>
-	//     <li>Temperature: ${</li>
-	//     <li>Humidity: ${}%</li>
-	//     <li>Wind Speed: ${} m/s</li>
-	//     <li>Weather: ${}</li>
-	//     <li>Country: ${}</li>
-	// </ul>
-	// `;
+	cityname.innerHTML = value?.name;
+	weatherDescription.innerHTML = value?.weather[0].description;
+	temperature.innerHTML = `${(value?.main.temp - 273.15).toFixed(2)} °C`;
+	windSpeed.innerHTML = `${value?.wind.speed}m/s`;
+	humidityData.innerHTML = `${value?.main.humidity}%`;
+	cloudData.innerHTML = `${value.clouds.all}%`;
+	countryFlag.src = `https://flagcdn.com/16x12/${value.sys?.country.toLowerCase()}.png`;
 }
 
 // Event listener for search button
