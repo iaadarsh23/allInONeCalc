@@ -3,6 +3,7 @@ const userTab = document.querySelector("[user-tab]");
 const searchTab = document.querySelector("[search-tab]");
 const searchForm = document.querySelector("[search-form]");
 const grantLocation = document.querySelector("[grant-location]");
+const grantBtn = document.querySelector("[grant-btn]");
 const weatherDesc = document.querySelector("[weather-detail]");
 const loader = document.querySelector("[loading]");
 //const api = "569e019ea0880c8c2b20220ac28d1fe7";
@@ -92,11 +93,9 @@ document.getElementById("srch").addEventListener("click", (event) => {
 
 // Function to get location data using geolocation API
 function myloc() {
-	const result = document.getElementById("js-result");
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showLoc);
-	} else {
-		result.innerHTML = "Cannot access";
+		alert("location fetched");
 	}
 }
 
@@ -135,10 +134,6 @@ function switchTab(newTab) {
 	}
 }
 
-userTab.addEventListener("click", () => {
-	myloc();
-});
-
 // Function to check coordinates in session storage
 function getfromSessionStorage() {
 	const localCoordinates = sessionStorage.getItem("user-coordinates");
@@ -149,3 +144,7 @@ function getfromSessionStorage() {
 		showLoc({ coords: coordinates });
 	}
 }
+
+grantBtn.addEventListener("click", () => {
+	myloc();
+});
