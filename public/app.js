@@ -14,6 +14,7 @@ function showLoc(position) {
 		lat: position.coords.latitude,
 		lon: position.coords.longitude,
 	};
+	sessionStorage.setItem("user-coordinates", JSON.stringify(coordinates));
 
 	async function Loc() {
 		//making the grant location ui invisible
@@ -38,11 +39,14 @@ function showLoc(position) {
 			console.log("error", error.message);
 		}
 	}
-	Loc();
+	Loc(coordinates);
 }
 
 // Function to get weather data based on city name
 async function weather(city) {
+	loader.classList.add("active");
+	grantLocation.classList.remove("active");
+
 	try {
 		let response = await fetch(
 			`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api}`
@@ -96,6 +100,8 @@ function myloc() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showLoc);
 		alert("location fetched");
+	} else {
+		alert("No geolocation available");
 	}
 }
 
@@ -145,6 +151,4 @@ function getfromSessionStorage() {
 	}
 }
 
-grantBtn.addEventListener("click", () => {
-	myloc();
-});
+grantBtn.addEventListener("click", myloc);
