@@ -150,5 +150,5 @@ function getfromSessionStorage() {
 		showLoc({ coords: coordinates });
 	}
 }
-
+console.log("happy new year");
 grantBtn.addEventListener("click", myloc);
